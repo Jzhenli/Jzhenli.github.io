@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://jzhenli.github.io/</id>
+    <title>文昭</title>
+    <updated>2020-09-21T12:42:30.994Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://jzhenli.github.io/"/>
+    <link rel="self" href="https://jzhenli.github.io/atom.xml"/>
+    <subtitle>人学始知道，不学非自然。</subtitle>
+    <logo>https://jzhenli.github.io/images/avatar.png</logo>
+    <icon>https://jzhenli.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, 文昭</rights>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://jzhenli.github.io/post/about/</id>
+        <link href="https://jzhenli.github.io/post/about/">
+        </link>
+        <updated>2020-09-21T07:25:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="个人简介">个人简介</h2>
+<ul>
+<li>Jerry, 江苏无锡</li>
+<li>嵌入式码农一枚，崇尚开源分享之自由精神</li>
+<li>喜欢DIY开源软硬件</li>
+<li>专注linux内核和人工智能开发</li>
+</ul>
+<h2 id="联系方式">联系方式</h2>
+<ul>
+<li>邮箱: Jzhenli@foxmail.com</li>
+</ul>
+<h2 id="关于本站">关于本站</h2>
+<ul>
+<li>搭建于Github Pages,欢迎Fork</li>
+</ul>
+]]></content>
+    </entry>
+</feed>
