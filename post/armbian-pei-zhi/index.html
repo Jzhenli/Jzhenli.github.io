@@ -4,21 +4,10 @@
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-<meta name="description" content="个人简介
-
-Jerry, 江苏无锡
-码农一枚，崇尚开源分享之自由精神
-专注嵌入式和人工智能领域
-喜欢DIY开源软硬件
-
-联系方式
-
-邮箱: Jzhenli@foxmail.com
-
-..." />
+<meta name="description" content="网上闲逛发现了Armbian, 该项目基于debian，类似于树莓派的官方操作系统，可玩性比较高，不同的是树莓派的系统只支持树莓派系列，而Armbian支持很多ARM开发板，尤其是对国内的全志芯片支持的比较好，手头的香橙派PC，香蕉派M1，..." />
 <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
 <script async src="https://cdn.ampproject.org/v0.js"></script>
-<title>关于 | 文昭</title>
+<title>Armbian体验 | 文昭</title>
 <style amp-custom>
 body {
     width: 100vw;
@@ -2507,7 +2496,7 @@ footer {
 </style>
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
 <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-<link rel="canonical" href="https://jzhenli.github.io/post/about/" />
+<link rel="canonical" href="https://jzhenli.github.io/post/armbian-pei-zhi/" />
 <link rel="shortcut icon" href="https://jzhenli.github.io//favicon.ico?v=1600698670050">
 
 
@@ -2518,7 +2507,7 @@ footer {
 
 
 
-<link rel="alternate" type="application/atom+xml" title="关于 | 文昭 - Atom Feed" href="https://jzhenli.github.io//atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Armbian体验 | 文昭 - Atom Feed" href="https://jzhenli.github.io//atom.xml">
 
 
 
@@ -2573,8 +2562,11 @@ footer {
 
       <div class="article-info">
         
+          <div class="flex-box meta-category">
+            <a class="post-cate" href="https://jzhenli.github.io/tag/ArtvEnx6u/">Linux</a></div>
+          
         <h2 class="article-title">
-          <a href="https://jzhenli.github.io/post/about/">关于</a>
+          <a href="https://jzhenli.github.io/post/armbian-pei-zhi/">Armbian体验</a>
         </h2>
         <div class="flex-box">
           <div class="flex-box post-meta-box">
@@ -2588,26 +2580,64 @@ footer {
         </div>
       </div>
       <div class="content">
-        <h2 id="个人简介">个人简介</h2>
-<ul>
-<li>Jerry, 江苏无锡</li>
-<li>码农一枚，崇尚开源分享之自由精神</li>
-<li>专注嵌入式和人工智能领域</li>
-<li>喜欢DIY开源软硬件</li>
-</ul>
-<h2 id="联系方式">联系方式</h2>
-<ul>
-<li>邮箱: Jzhenli@foxmail.com</li>
-</ul>
+        <p>网上闲逛发现了Armbian, 该项目基于debian，类似于树莓派的官方操作系统，可玩性比较高，不同的是树莓派的系统只支持树莓派系列，而Armbian支持很多ARM开发板，尤其是对国内的全志芯片支持的比较好，手头的香橙派PC，香蕉派M1，正好都支持，刷一波体验下。</p>
+<p>到Armbian官网下载BananaPi M1固件，最新的固件基于buster(debian10)或focal(ubuntu20.04 ),分桌面版和server版，后者没有GUI，由于我主要用来跑网路程序，不需要桌面，因此下载了focal server版。烧写系统很简单，用Panasonic_SDFormatter格式化SD卡，然后Win32DiskImager写入操作系统到SD卡，上电启动即可。</p>
+<p>用SSH远程登陆，首次登陆用户名root，密码1234。登录后会提示你创建用户名和密码，按要求操作就可以了。由于官方的源在国外，更新系统或者安装软件速度都很慢，可以更改为国内的镜像源。这里改为中科大的镜像源，注意使用的是arm版本（ubuntu-ports）：</p>
+<p>切换国内源<br>
+sudo nano /etc/apt/sources.list</p>
+<p>输入<br>
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ focal main multiverse restricted universe<br>
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-backports main multiverse restricted universe<br>
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-proposed main multiverse restricted universe<br>
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-security main multiverse restricted universe<br>
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-updates main multiverse restricted universe<br>
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ focal main multiverse restricted universe<br>
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-backports main multiverse restricted universe<br>
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-proposed main multiverse restricted universe<br>
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-security main multiverse restricted universe<br>
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ focal-updates main multiverse</p>
+<p>ctrl+o 写入<br>
+ctrl+x 退出编辑<br>
+sudo apt-get update<br>
+sudo apt-get upgrade</p>
+<p>如果是用桌面版，还可以开启远程桌面xrdp：<br>
+sudo apt install xrdp xorgxrdp<br>
+sudo systemctl enable xrdp<br>
+sudo reboot</p>
+<p>系统设置指令,可以设置wifi 等<br>
+armbian-config</p>
+<p>设置时区<br>
+sudo timedatectl set-timezone Asia/Shanghai<br>
+查看时间：<br>
+timedatectl</p>
+<p>后台运行脚本<br>
+nohup python3 test.py &amp;</p>
+<p>初步测试还是比较健壮的，7*24连续跑了半个月没有任何问题，由于全志芯片物美价廉，再加上这个系统，做些小项目是个不错的选择。</p>
 
       </div>
 
+      
+      <nav class="post-nav">
+        
+        
+        <div class="nav-next">
+          <a class="post-nav-link-active" title="关于" href="https://jzhenli.github.io/post/about/">下一篇文章</a>
+          
+
+        </div>
+      </nav>
       
 
       
       
 
       <div class="post-tags">
+        
+        <a href="https://jzhenli.github.io/tag/ArtvEnx6u/" rel="tag">Linux</a>        
+        
+        <a href="https://jzhenli.github.io/tag/8huJ9Uem5z/" rel="tag">SBC</a>        
+        
+        <a href="https://jzhenli.github.io/tag/5MyITnI8Zv/" rel="tag">Armbian</a>        
                
       </div>
 
