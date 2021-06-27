@@ -2,14 +2,113 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jzhenli.github.io/</id>
     <title>文昭</title>
-    <updated>2020-10-06T03:40:31.208Z</updated>
+    <updated>2021-06-27T04:34:41.671Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jzhenli.github.io/"/>
     <link rel="self" href="https://jzhenli.github.io/atom.xml"/>
     <subtitle>人学始知道，不学非自然。</subtitle>
     <logo>https://jzhenli.github.io/images/avatar.png</logo>
     <icon>https://jzhenli.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 文昭</rights>
+    <rights>All rights reserved 2021, 文昭</rights>
+    <entry>
+        <title type="html"><![CDATA[python程序打包]]></title>
+        <id>https://jzhenli.github.io/post/python-cheng-xu-da-bao/</id>
+        <link href="https://jzhenli.github.io/post/python-cheng-xu-da-bao/">
+        </link>
+        <updated>2021-06-27T04:31:04.000Z</updated>
+        <content type="html"><![CDATA[<p>用python做GUI小工具很方便，但是发布给别人使用却不那么容易，一般要求别人要安装python以及相应的依赖库。目前常见的解决方案是用pyinstaller打包，但是效果不太好。本文介绍另一种方案，使用beeware工具链中的breifcase进行打包，简单好用。</p>
+<p>python GUI框架有很多，比如tkinter,  wxpython, pyqt5, pyside2等。其中tkinter是python官方内置的轻量级的GUI 框架，简单但是功能偏弱， 但是做些小工具绰绰有余。如果对性能有要求，可以考虑wxpython, 至于pyqt5或者pyside2适合重量级的大型项目。所以笔者喜欢用tkinter和wxPython,简单小巧。</p>
+<p>根据briefcase官方文档，其不支持tkinter，但是笔者经过尝试，发现通过一些额外的手段，其实完美支持。 接下来介绍如何使用briefcase打包tkinter小程序。</p>
+<h1 id="环境依赖">环境依赖</h1>
+<p>briefcase需要安装：<br>
+<a href="https://git-scm.com/download/">git</a><br>
+<a href="https://wixtoolset.org/releases/">WiX Toolset</a></p>
+<h1 id="程序开发">程序开发</h1>
+<p>通过python设置开发环境<br>
+python3 -m venv beeware-venv<br>
+beeware-venv\Scripts\activate.bat<br>
+(beeware-venv)&gt; python3 -m pip install briefcase<br>
+(beeware-venv)&gt; briefcase new<br>
+按照提示输入项目信息,我们新建项目demo, 在GUI framework 中选择None,因为我们要使用tkinter.<br>
+(beeware-venv)&gt; cd demo<br>
+(beeware-venv)&gt; briefcase dev<br>
+发现什么都没运行，这是因为我们还没写app。打开文件目录中app.py输入以下代码</p>
+<pre><code>import tkinter
+
+from matplotlib.backends.backend_tkagg import (
+    FigureCanvasTkAgg, NavigationToolbar2Tk)
+# Implement the default Matplotlib key bindings.
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.figure import Figure
+
+import numpy as np
+
+
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+
+def main():
+
+    root = tkinter.Tk()
+    root.wm_title(&quot;Embedding in Tk&quot;)
+
+    fig = Figure(figsize=(5, 4), dpi=100)
+    t = np.arange(0, 3, .01)
+    fig.add_subplot().plot(t, 2 * np.sin(2 * np.pi * t))
+
+    canvas = FigureCanvasTkAgg(fig, master=root)  # A tk.DrawingArea.
+    canvas.draw()
+
+    # pack_toolbar=False will make it easier to use a layout manager later on.
+    toolbar = NavigationToolbar2Tk(canvas, root, pack_toolbar=False)
+    toolbar.update()
+
+
+    canvas.mpl_connect(
+        &quot;key_press_event&quot;, lambda event: print(f&quot;you pressed {event.key}&quot;))
+    canvas.mpl_connect(&quot;key_press_event&quot;, key_press_handler)
+
+    button = tkinter.Button(master=root, text=&quot;Quit&quot;, command=root.quit)
+
+    # Packing order is important. Widgets are processed sequentially and if there
+    # is no space left, because the window is too small, they are not displayed.
+    # The canvas is rather flexible in its size, so we pack it last which makes
+    # sure the UI controls are displayed as long as possible.
+    button.pack(side=tkinter.BOTTOM)
+    toolbar.pack(side=tkinter.BOTTOM, fill=tkinter.X)
+    canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+
+    root.iconbitmap(current_dir+r&quot;\resources\demo.ico&quot;)
+    tkinter.mainloop()
+</code></pre>
+<p>可以看到我们的程序需要安装matplotlib,<br>
+(beeware-venv)&gt; pip install matplotlib</p>
+<p>注意由于我们使用的是自己的程序图标，只需要在resources目录中删掉默认的所有图标，然后放入自己的图标.ico<br>
+然后再运行<br>
+(beeware-venv)&gt; briefcase dev</p>
+<figure data-type="image" tabindex="1"><img src="https://jzhenli.github.io//post-images/1624768105204.PNG" alt="" loading="lazy"></figure>
+<h1 id="程序打包">程序打包</h1>
+<p>简单配置下cfg文件，打开pyproject.toml按照如下修改：</p>
+<figure data-type="image" tabindex="2"><img src="https://jzhenli.github.io//post-images/1624768473322.PNG" alt="" loading="lazy"></figure>
+<p>(beeware-venv)&gt; briefcase create<br>
+(beeware-venv)&gt; briefcase build<br>
+(beeware-venv)&gt; briefcase run</p>
+<p>发现unable to start app,这是因为官方不支持tkinter, 接下简单介绍下如何破解，如果是用的wxpython或者其他框架，这步可以跳过。<br>
+从本地安装的对应的python目录下copy以下文件或文件夹到demo\windows\msi\demo\src\python目录下<br>
+1.tcl folder<br>
+2.tkinter folder (which is under Lib)<br>
+3.files _tkinter.pyd tcl86t.dll tk86t.dll (which are under DLLs)</p>
+<p>然后再运行<br>
+(beeware-venv)&gt; briefcase run<br>
+大功告成，现在可以打包了<br>
+(beeware-venv)&gt; briefcase package<br>
+生成demo-0.0.1.msi,就可以发给别人安装使用了。</p>
+<p>如果程序需要更改，只要修改代码源文件,然后按照如下方式重新打包就可以了。<br>
+(beeware-venv)&gt; briefcase run -u<br>
+(beeware-venv)&gt; briefcase package</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Source Insight 4配置]]></title>
         <id>https://jzhenli.github.io/post/source-insight-4-pei-zhi/</id>
