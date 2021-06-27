@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jzhenli.github.io/</id>
     <title>文昭</title>
-    <updated>2021-06-27T04:34:41.671Z</updated>
+    <updated>2021-06-27T04:40:55.436Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jzhenli.github.io/"/>
     <link rel="self" href="https://jzhenli.github.io/atom.xml"/>
@@ -20,9 +20,11 @@
 <p>python GUI框架有很多，比如tkinter,  wxpython, pyqt5, pyside2等。其中tkinter是python官方内置的轻量级的GUI 框架，简单但是功能偏弱， 但是做些小工具绰绰有余。如果对性能有要求，可以考虑wxpython, 至于pyqt5或者pyside2适合重量级的大型项目。所以笔者喜欢用tkinter和wxPython,简单小巧。</p>
 <p>根据briefcase官方文档，其不支持tkinter，但是笔者经过尝试，发现通过一些额外的手段，其实完美支持。 接下来介绍如何使用briefcase打包tkinter小程序。</p>
 <h1 id="环境依赖">环境依赖</h1>
-<p>briefcase需要安装：<br>
-<a href="https://git-scm.com/download/">git</a><br>
-<a href="https://wixtoolset.org/releases/">WiX Toolset</a></p>
+<p>briefcase需要安装：</p>
+<ul>
+<li><a href="https://git-scm.com/download/">git</a></li>
+<li><a href="https://wixtoolset.org/releases/">WiX Toolset</a></li>
+</ul>
 <h1 id="程序开发">程序开发</h1>
 <p>通过python设置开发环境<br>
 python3 -m venv beeware-venv<br>
